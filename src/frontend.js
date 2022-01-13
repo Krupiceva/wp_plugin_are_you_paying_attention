@@ -13,7 +13,7 @@ divsToUpdate.forEach((div) => {
 function Quiz(props) {
 	const [isCorrect, setIsCorrect] = useState(undefined)
 	const [isCorrectDelayed, setIsCorrectDelayed] = useState(undefined)
-	const { question, answers, correctAnswer } = props
+	const { question, answers, correctAnswer, bgColor, theAlignment } = props
 
 	useEffect(() => {
 		if (isCorrect === false) {
@@ -38,7 +38,9 @@ function Quiz(props) {
 	}
 
 	return (
-		<div className='paying-attention-frontend'>
+		<div
+			className='paying-attention-frontend'
+			style={{ backgroundColor: bgColor, textAlign: theAlignment }}>
 			<p>{question}</p>
 			<ul>
 				{answers.map((answer, index) => {

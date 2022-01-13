@@ -143,7 +143,9 @@ function Quiz(props) {
   const {
     question,
     answers,
-    correctAnswer
+    correctAnswer,
+    bgColor,
+    theAlignment
   } = props;
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
     if (isCorrect === false) {
@@ -168,7 +170,11 @@ function Quiz(props) {
   }
 
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "paying-attention-frontend"
+    className: "paying-attention-frontend",
+    style: {
+      backgroundColor: bgColor,
+      textAlign: theAlignment
+    }
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, question), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("ul", null, answers.map((answer, index) => {
     return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", {
       className: (isCorrectDelayed === true && index === correctAnswer ? 'no-click' : '') + (isCorrectDelayed === true && index != correctAnswer ? 'fade-incorrect' : ''),

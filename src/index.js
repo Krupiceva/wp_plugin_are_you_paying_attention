@@ -7,7 +7,15 @@ import {
 	FlexItem,
 	Button,
 	Icon,
+	PanelBody,
+	PanelRow,
 } from '@wordpress/components'
+import {
+	InspectorControls,
+	BlockControls,
+	AlignmentToolbar,
+} from '@wordpress/block-editor'
+import { ChromePicker } from 'react-color'
 
 //So i dont need to make up a unique name of a function, immediately define and call this function
 ;(function () {
@@ -45,6 +53,18 @@ wp.blocks.registerBlockType('ourplugin/are-you-paying-attention', {
 		question: { type: 'string' },
 		answers: { type: 'array', default: [''] },
 		correctAnswer: { type: 'number', default: undefined },
+		bgColor: { type: 'string', default: '#EBEBEB' },
+		theAlignment: { type: 'string', default: 'left' },
+	},
+	description: 'Give your audience a chance to prove their comprehension.',
+	example: {
+		attributes: {
+			question: 'What is my name?',
+			correctAnswer: 3,
+			answers: ['Drupiceva', 'Brupiceva', 'Grupiceva', 'Krupiceva'],
+			theAlignment: 'center',
+			bgColor: '#CFE8F1',
+		},
 	},
 	edit: EditComponent,
 	save: () => {
@@ -75,7 +95,28 @@ function EditComponent(props) {
 	}
 
 	return (
-		<div className='paying-attention-edit-block'>
+		<div
+			className='paying-attention-edit-block'
+			style={{ backgroundColor: props.attributes.bgColor }}>
+			<BlockControls>
+				<AlignmentToolbar
+					value={props.attributes.theAlignment}
+					onChange={(x) => props.setAttributes({ theAlignment: x })}
+				/>
+			</BlockControls>
+			<InspectorControls>
+				<PanelBody title='Background Color' initialOpen={true}>
+					<PanelRow>
+						<ChromePicker
+							color={props.attributes.bgColor}
+							onChangeComplete={(x) =>
+								props.setAttributes({ bgColor: x.hex })
+							}
+							disableAlpha={true}
+						/>
+					</PanelRow>
+				</PanelBody>
+			</InspectorControls>
 			<TextControl
 				label='Question:'
 				style={{ fontSize: '20px' }}
